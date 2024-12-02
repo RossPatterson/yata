@@ -17,14 +17,14 @@
 
 #define MAXRECL 800
 #define ARCLINELEN 80
-#define VERSION "1.2.5"
+#define VERSION "1.2.6"
 
 #ifdef __CMS
 
 #include <cmssys.h>
 static char* includeTypes[] = { "C", "H", "EXEC", "ASSEMBLE", "LISTING", 
               "COPY", "MACLIB", "TMPFTYPE", "PEG", "RXAS", "Y", "RE", "TXT",
-             "MACRO", "PARM", "MEMO", "HELPCMD", "HELPCMD2" };
+             "MACRO", "PARM", "MEMO", "HELPCMD", "HELPCMD2" , "HELPREXX" };
 #define ARCHIVE "ARCHIVE YATA A1"
 #define DRIVE "A"
 #define FILENAMELEN 25
@@ -46,7 +46,7 @@ static char fileNameBuffer[FILENAMELEN];
 #include <ctype.h>
 static char* includeTypes[] = { "c", "h", "exec", "assemble", "listing",
               "copy", "maclib", "tmpftype","peg", "rxas", "y", "re", "txt",
-             "macro", "parm", "memo", "helpcmd", "helpcmd2" };
+             "macro", "parm", "memo", "helpcmd", "helpcmd2" , "helprexx" };
 #define ARCHIVE "archive.yata"
 #define DRIVE "."
 
