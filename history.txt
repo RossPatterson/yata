@@ -1,4 +1,4 @@
-YATA - Yay! Another Text Archive
+	YATA - Yay! Another Text Archive
 ================================
 Adrian Sutherland - adrian@sutherlandonline.org
 
@@ -7,6 +7,7 @@ History
 1.2.6 - 2 December 2024
       - Add HELPREXX/helprexx to included file types.
       - Update built script to use Ross Patterson's docker image.
+	  - Upgrade GitHub artifact actions to v4.
 
 1.2.5 - 5 April 2021
 F0011 - VM/370 CE Support - Specifically CMSINSTALL is deprecated and the
