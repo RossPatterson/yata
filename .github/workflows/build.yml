@@ -45,7 +45,7 @@ jobs:
 
     - name: Upload Executable
       if: startsWith(github.ref, 'refs/tags/')
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: YATA-CMS
         path: ./exe
@@ -85,7 +85,7 @@ jobs:
 
     - name: Upload Executable
       if: startsWith(github.ref, 'refs/tags/')
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: YATA-Ubuntu
         path: "${{ runner.temp }}/exe"
@@ -125,7 +125,7 @@ jobs:
 
     - name: Upload Executable
       if: startsWith(github.ref, 'refs/tags/')
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: YATA-Windows
         path: "${{ runner.temp }}/exe"
@@ -165,7 +165,7 @@ jobs:
 
       - name: Upload Executable
         if: startsWith(github.ref, 'refs/tags/')
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: YATA-MacOS
           path: "${{ runner.temp }}/exe"
@@ -180,7 +180,7 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Get CMS binary 
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v4
         with:
           name: YATA-CMS
           path: YATA-CMS
@@ -190,7 +190,7 @@ jobs:
           zip -r YATA-CMS.zip YATA-CMS
 
       - name: Get ubuntu binary 
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v4
         with:
           name: YATA-Ubuntu
           path: YATA-Ubuntu
@@ -200,7 +200,7 @@ jobs:
           zip -r YATA-Ubuntu.zip YATA-Ubuntu
 
       - name: Get windows binary 
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v4
         with:
           name: YATA-Windows
           path: YATA-Windows
@@ -210,7 +210,7 @@ jobs:
           zip -r YATA-Windows.zip YATA-Windows
 
       - name: Get macos binary
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v4
         with:
           name: YATA-MacOS
           path: YATA-MacOS
