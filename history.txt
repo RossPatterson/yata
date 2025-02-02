@@ -8,6 +8,7 @@ History
       - Add DIRECT/direct, HELPTASK/helptask, and MD/md to included file types.
       - Make it clear what's being skipped and why.
       - Check if input file is a directory and skip if so.
+      - Run verification tests.
 
 1.2.6 - 2 Dec 2024
       - Add HELPREXX/helprexx to included file types.

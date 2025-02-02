@@ -133,7 +133,7 @@ jobs:
       run: |
         rmdir /q/s test 2>NUL:
         mkdir test
-        copy "${{ github.workspace }}\test" test
+        xcopy /e/i "${{ github.workspace }}\test" test
         copy "${{ runner.temp }}\build\yata.exe" test
         cd test
         .\runtest.bat
