@@ -78,8 +78,12 @@ jobs:
       shell: bash
 
     - name: Run tests
-      working-directory: ${{ runner.temp }}/build/test
+      working-directory: "${{ runner.temp }}/build"
       run: |
+        rm -rf test 2>/dev/null
+        cp -r "${{ github.workspace }}/test" .
+        cp "${{ runner.temp }}/build/yata" test
+        cd test
         ./runtest.sh
       shell: bash
 
@@ -124,9 +128,14 @@ jobs:
       shell: bash
 
     - name: Run tests
-      working-directory: ${{ runner.temp }}/build/test
+      working-directory: "${{ runner.temp }}\build"
       run: |
-        .\runtest
+        rmdir /q/s test 2>NUL:
+        mkdir test
+        copy "${{ github.workspace }}\test" test
+        copy "${{ runner.temp }}\build\yata.exe" test
+        cd test
+        .\runtest.bat
       shell: cmd
 
     - name: Sanity Check
@@ -170,8 +179,12 @@ jobs:
         shell: bash
 
       - name: Run tests
-        working-directory: ${{ runner.temp }}/build/test
+        working-directory: ${{ github.workspace }}/test
         run: |
+          rm -rf test 2>/dev/null
+          cp -r "${{ github.workspace }}/test" .
+          cp "${{ runner.temp }}/build/yata" test
+          cd test
           ./runtest.sh
         shell: bash
 
