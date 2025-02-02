@@ -1,4 +1,3 @@
-set -x
 let exit_rc=0
 
 echo Test 1: Create and verify an archive
