@@ -84,6 +84,7 @@ jobs:
         cp -r "${{ github.workspace }}/test" .
         cp "${{ runner.temp }}/build/yata" test
         cd test
+        chmod a+x yata runtest.sh
         ./runtest.sh
       shell: bash
 
@@ -128,7 +129,7 @@ jobs:
       shell: bash
 
     - name: Run tests
-      working-directory: "${{ runner.temp }}\build"
+      working-directory: ${{ runner.temp }}\build
       run: |
         rmdir /q/s test 2>NUL:
         mkdir test
@@ -185,6 +186,7 @@ jobs:
           cp -r "${{ github.workspace }}/test" .
           cp "${{ runner.temp }}/build/yata" test
           cd test
+          chmod a+x yata runtest.sh
           ./runtest.sh
         shell: bash
 
