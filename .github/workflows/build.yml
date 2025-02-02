@@ -77,6 +77,12 @@ jobs:
         ls "${{ runner.temp }}/exe"
       shell: bash
 
+    - name: Run tests
+      working-directory: ${{ runner.temp }}/build/test
+      run: |
+        ./runtest.sh
+      shell: bash
+
     - name: Sanity Check
       working-directory: ${{ runner.temp }}/exe
       run: | 
@@ -117,6 +123,12 @@ jobs:
         ls "${{ runner.temp }}/exe"
       shell: bash
 
+    - name: Run tests
+      working-directory: ${{ runner.temp }}/build/test
+      run: |
+        .\runtest
+      shell: cmd
+
     - name: Sanity Check
       working-directory: ${{ runner.temp }}/exe
       run: | 
@@ -155,6 +167,12 @@ jobs:
           cp README.md "${{ runner.temp }}/exe"
           cp history.txt "${{ runner.temp }}/exe"
           ls "${{ runner.temp }}/exe"
+        shell: bash
+
+      - name: Run tests
+        working-directory: ${{ runner.temp }}/build/test
+        run: |
+          ./runtest.sh
         shell: bash
 
       - name: Sanity Check
