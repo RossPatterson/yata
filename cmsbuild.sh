@@ -48,7 +48,7 @@ herccontrol "/read *" -w "^Ready;"
 herccontrol "/make" -w "^Ready;"
 
 # Sanity test
-herccontrol "/listf test* exec a (label" -w "^Ready;"
+herccontrol "/listf test* exec a (label" -w "^Ready(00028);"
 herccontrol "/yata -x" -w "^Ready;"
 herccontrol "/listf test* exec a (label" -w "^Ready;"
 
