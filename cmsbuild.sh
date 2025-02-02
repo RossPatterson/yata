@@ -48,8 +48,9 @@ herccontrol "/read *" -w "^Ready;"
 herccontrol "/make" -w "^Ready;"
 
 # Sanity test
+herccontrol "/listf test* exec a (label" -w "^Ready;"
 herccontrol "/yata -x" -w "^Ready;"
-herccontrol "/listf test* exec a" -w "^Ready;"
+herccontrol "/listf test* exec a (label" -w "^Ready;"
 
 # Make and load Tape
 herccontrol "/cp disc" -w "^VM/370 Online"

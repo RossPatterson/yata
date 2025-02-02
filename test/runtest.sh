@@ -1,3 +1,4 @@
+set -x
 let exit_rc=0
 
 echo Test 1: Create and verify an archive
@@ -6,7 +7,7 @@ let my_rc=0
 ./yata -c -d ./in_data
 let my_rc=$my_rc+$?
 diff -u in_data/archive.yata archive.yata
-let rc=$?
+let my_rc=$my_rc+$?
 if [[ $my_rc != 0 ]] ; then echo Test failed
 else echo Test passed
 fi
