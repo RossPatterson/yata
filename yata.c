@@ -238,11 +238,12 @@ static int create_archive() {
       fileName = validateFileName(dirAndName);
 
 #else
-  d = opendir(drive);
-  if (d) {
-    char dirAndName[260];
-    while ((dir = readdir(d)) != NULL) {
-      snprintf(dirAndName, 259, "%s/%s", drive, dir->d_name);
+  struct dirent **dirs;
+  int n;
+  n = scandir(drive, &dirs, NULL, alphasort);
+  for (i=0; i < n; i++) {
+      char dirAndName[260];
+      snprintf(dirAndName, 259, "%s/%s", drive, dir[i]->d_name);
       fileName = validateFileName(dirAndName);
 
 #endif
