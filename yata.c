@@ -37,12 +37,8 @@ static char fileNameBuffer[FILENAMELEN];
 #ifdef _WIN32
 
 #include <windows.h>
-#if 0
-#include <shlwapi.h>
-#endif
-#if 1
 #include <sys/stat.h>
-#endif
+
 #else
 
 #include <dirent.h>
@@ -341,19 +337,11 @@ static char* validateFileName(char* listFileLine) {
   strncpy(buffer, listFileLine, 100);
 
 #ifdef _WIN32
-#IF 0
-    if (PathIsDirectory(listFileLine) == FILE_ATTRIBUTE_DIRECTORY){
-      printf("WARNING: file %s skipped - is a directory\n", listFileLine);
-      return NULL;
-  }
-#endif
-#if 1
   struct stat s;
   if ((stat(listFileLine,&s) == 0) & S_ISDIR(s.st_mode)) {
       printf("WARNING: file %s skipped - is a directory\n", listFileLine);
       return NULL;
   }
-#endif
 #else
   struct stat s;
   if ((stat(listFileLine,&s) == 0) & S_ISDIR(s.st_mode)) {
