@@ -37,7 +37,7 @@ herccontrol "/read *" -w "^Ready;"
 # Read ARCHIVE YATA (for testing)
 herccontrol -m >tmp; read mark <tmp; rm tmp
 echo "USERID  CMSUSER\n:READ  ARCHIVE  YATA    " > tmp
-cat test/archive.yata >> tmp
+cat test/in_data/archive.yata >> tmp
 netcat -q 0 localhost 3505 < tmp
 rm tmp
 herccontrol -w "HHCRD012I" -f $mark 
