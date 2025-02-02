@@ -239,12 +239,12 @@ static int create_archive() {
 
 #else
   struct dirent **dirs;
-  int n;
+  int i, n;
   n = scandir(drive, &dirs, NULL, alphasort);
   for (i=0; i < n; i++) {
-      char dirAndName[260];
-      snprintf(dirAndName, 259, "%s/%s", drive, dir[i]->d_name);
-      fileName = validateFileName(dirAndName);
+    char dirAndName[260];
+    snprintf(dirAndName, 259, "%s/%s", drive, dir[i]->d_name);
+    fileName = validateFileName(dirAndName);
 
 #endif
 #endif
@@ -288,20 +288,12 @@ static int create_archive() {
         }
         fclose(inFile);
       }
-    }
 #ifdef _WIN32
-    while (FindNextFile(hFind, &fdFile) != 0);
+    } while (FindNextFile(hFind, &fdFile) != 0);
     FindClose(hFind);
 #endif
   }
 
-#ifdef __CMS
-#else
-#ifdef _WIN32
-#else
-  closedir(d);
-#endif
-#endif
   fprintf(outFile, "*\n");
   fclose(outFile);
 
