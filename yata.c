@@ -17,14 +17,16 @@
 
 #define MAXRECL 800
 #define ARCLINELEN 80
-#define VERSION "1.2.6"
+#define VERSION "1.2.7"
 
 #ifdef __CMS
 
 #include <cmssys.h>
 static char* includeTypes[] = { "C", "H", "EXEC", "ASSEMBLE", "LISTING", 
               "COPY", "MACLIB", "TMPFTYPE", "PEG", "RXAS", "Y", "RE", "TXT",
-             "MACRO", "PARM", "MEMO", "HELPCMD", "HELPCMD2" , "HELPREXX" };
+             "MACRO", "PARM", "MEMO", "HELPCMD", "HELPCMD2" , "HELPREXX",
+             "HELPTASK", "MD", "DIRECT"
+             };
 #define ARCHIVE "ARCHIVE YATA A1"
 #define DRIVE "A"
 #define FILENAMELEN 25
@@ -35,18 +37,26 @@ static char fileNameBuffer[FILENAMELEN];
 #ifdef _WIN32
 
 #include <windows.h>
-
+#if 0
+#include <shlwapi.h>
+#endif
+#if 1
+#include <sys/stat.h>
+#endif
 #else
 
 #include <dirent.h>
 #include <libgen.h>
+#include <sys/stat.h>
 
 #endif
 
 #include <ctype.h>
 static char* includeTypes[] = { "c", "h", "exec", "assemble", "listing",
               "copy", "maclib", "tmpftype","peg", "rxas", "y", "re", "txt",
-             "macro", "parm", "memo", "helpcmd", "helpcmd2" , "helprexx" };
+             "macro", "parm", "memo", "helpcmd", "helpcmd2" , "helprexx",
+             "helptask", "md", "direct"
+             };
 #define ARCHIVE "archive.yata"
 #define DRIVE "."
 
@@ -211,7 +221,7 @@ static int create_archive() {
 #ifdef __CMS
   int i;
   char command[40];
-  setbuf(outFile, 0); /* Disables te overhead of the random r/w cache */
+  setbuf(outFile, 0); /* Disables the overhead of the random r/w cache */
   stackSize = CMSstackQuery();
   sprintf(command, "LISTFILE * * %s (FORMAT STACK", drive);
   CMScommand(command, CMS_COMMAND);
@@ -249,7 +259,7 @@ static int create_archive() {
           return 1;
         }
 #ifdef __CMS
-        setbuf(inFile, 0); /* Disables te overhead of the random r/w cache */
+        setbuf(inFile, 0); /* Disables the overhead of the random r/w cache */
 #endif
         fprintf(outFile, "+%s\n", toStoredName(fileName));
         while (fgets(lineBuffer, MAXRECL, inFile) != NULL) {
@@ -303,7 +313,6 @@ static int create_archive() {
 
 static char* validateFileName(char* listFileLine) {
   int i;
-  /* TODO Check if the file is not a directory */
 
 #ifdef __CMS
 
@@ -316,6 +325,7 @@ static char* validateFileName(char* listFileLine) {
   listFileLine[29] = 0;
   recl = atoi(listFileLine + 24);
   if (recl > MAXRECL) {
+    printf("WARNING: file %s skipped - line too long\n", listFileLine);
     return NULL;
   }
 
@@ -329,11 +339,34 @@ static char* validateFileName(char* listFileLine) {
 
   char buffer[100];
   strncpy(buffer, listFileLine, 100);
+
+#ifdef _WIN32
+#IF 0
+    if (PathIsDirectory(listFileLine) == FILE_ATTRIBUTE_DIRECTORY){
+      printf("WARNING: file %s skipped - is a directory\n", listFileLine);
+      return NULL;
+  }
+#endif
+#if 1
+  struct stat s;
+  if ((stat(listFileLine,&s) == 0) & S_ISDIR(s.st_mode)) {
+      printf("WARNING: file %s skipped - is a directory\n", listFileLine);
+      return NULL;
+  }
+#endif
+#else
+  struct stat s;
+  if ((stat(listFileLine,&s) == 0) & S_ISDIR(s.st_mode)) {
+      printf("WARNING: file %s skipped - is a directory\n", listFileLine);
+      return NULL;
+  }
+#endif
+
   buffer[99] = 0;
   (void)strtok(buffer, ".");
   char* trimmedFileType = strtok(NULL, " .");
   if (trimmedFileType == NULL) {
-    printf("WARNING: file %s skipped\n", listFileLine);
+    printf("WARNING: file %s skipped - no filetype\n", listFileLine);
     return NULL;
   }
 
@@ -348,7 +381,7 @@ static char* validateFileName(char* listFileLine) {
       return listFileLine;
     }
   }
-  printf("WARNING: file %s skipped\n", listFileLine);
+  printf("WARNING: file %s skipped - not an included filetype\n", listFileLine);
   return NULL;
 }
 
@@ -374,7 +407,7 @@ static int extract_archive() {
     return 1;
   }
 #ifdef __CMS
-    setbuf(inFile, 0); /* Disables te overhead of the random r/w cache */
+    setbuf(inFile, 0); /* Disables the overhead of the random r/w cache */
 #endif
     while (fgets(line, ARCLINELEN + 3, inFile) != NULL) {
     lineNo++;
@@ -417,7 +450,7 @@ static int extract_archive() {
         return 1;
       }
 #ifdef __CMS
-      setbuf(outFile, 0); /* Disables te overhead of the random r/w cache */
+      setbuf(outFile, 0); /* Disables the overhead of the random r/w cache */
 #endif
       break;
 
