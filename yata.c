@@ -203,8 +203,9 @@ static int create_archive() {
   WIN32_FIND_DATA fdFile;
   HANDLE hFind = NULL;
 #else
-  DIR* d;
-  struct dirent* dir;
+  struct dirent **dirs;
+  int i;
+  int n;
 #endif
 #endif
   char* fileName;
@@ -238,13 +239,11 @@ static int create_archive() {
       fileName = validateFileName(dirAndName);
 
 #else
-  struct dirent **dirs;
-  int i, n;
   n = scandir(drive, &dirs, NULL, alphasort);
   {
     for (i=0; i < n; i++) {
       char dirAndName[260];
-      snprintf(dirAndName, 259, "%s/%s", drive, dir[i]->d_name);
+      snprintf(dirAndName, 259, "%s/%s", drive, dirs[i]->d_name);
       fileName = validateFileName(dirAndName);
 
 #endif
