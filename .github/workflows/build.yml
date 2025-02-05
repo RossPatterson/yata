@@ -8,7 +8,7 @@ jobs:
   build-cms:
     name: Build for CMS
     runs-on: [ubuntu-latest]
-    container: adriansutherland/vm370:builder
+    container: rosspatterson/vm370:builder
    
     steps:
 
