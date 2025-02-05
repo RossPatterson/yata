@@ -8,7 +8,7 @@ jobs:
   build-cms:
     name: Build for CMS
     runs-on: [ubuntu-latest]
-    container: adriansutherland/vm370:builder
+    container: rosspatterson/vm370:builder
    
     steps:
 
@@ -77,6 +77,17 @@ jobs:
         ls "${{ runner.temp }}/exe"
       shell: bash
 
+    - name: Run tests
+      working-directory: "${{ runner.temp }}/build"
+      run: |
+        rm -rf test 2>/dev/null
+        cp -r "${{ github.workspace }}/test" .
+        cp "${{ runner.temp }}/build/yata" test
+        cd test
+        chmod a+x yata runtest.sh
+        ./runtest.sh
+      shell: bash
+
     - name: Sanity Check
       working-directory: ${{ runner.temp }}/exe
       run: | 
@@ -117,6 +128,17 @@ jobs:
         ls "${{ runner.temp }}/exe"
       shell: bash
 
+    - name: Run tests
+      working-directory: ${{ runner.temp }}\build
+      run: |
+        rmdir /q/s test 2>NUL:
+        mkdir test
+        xcopy /e/i "${{ github.workspace }}\test" test
+        copy "${{ runner.temp }}\build\yata.exe" test
+        cd test
+        .\runtest.bat
+      shell: cmd
+
     - name: Sanity Check
       working-directory: ${{ runner.temp }}/exe
       run: | 
@@ -155,6 +177,17 @@ jobs:
           cp README.md "${{ runner.temp }}/exe"
           cp history.txt "${{ runner.temp }}/exe"
           ls "${{ runner.temp }}/exe"
+        shell: bash
+
+      - name: Run tests
+        working-directory: ${{ github.workspace }}/test
+        run: |
+          rm -rf test 2>/dev/null
+          cp -r "${{ github.workspace }}/test" .
+          cp "${{ runner.temp }}/build/yata" test
+          cd test
+          chmod a+x yata runtest.sh
+          ./runtest.sh
         shell: bash
 
       - name: Sanity Check

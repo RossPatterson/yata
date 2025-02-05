@@ -6,12 +6,12 @@ set -e
 
 # IPL
 herccontrol -v
-herccontrol "ipl 141" -w "USER DSC LOGOFF AS AUTOLOG1"
+herccontrol "ipl 6a1" -w "USER DSC LOGOFF AS AUTOLOG1"
 herccontrol "/cp start c" -w "RDR"
 
 # LOGON CMSUSER
 herccontrol "/cp disc" -w "^VM/370 Online"
-herccontrol "/logon cmsuser cmsuser" -w "^CMS"
+herccontrol "/logon cmsuser cmsuser" -w "^VM Community Edition V1 R1.2"
 herccontrol "/" -w "^Ready;"
 
 # Read MAKE EXEC
@@ -37,7 +37,17 @@ herccontrol "/read *" -w "^Ready;"
 # Read ARCHIVE YATA (for testing)
 herccontrol -m >tmp; read mark <tmp; rm tmp
 echo "USERID  CMSUSER\n:READ  ARCHIVE  YATA    " > tmp
-cat test/archive.yata >> tmp
+cat test/in_data/archive.yata >> tmp
+netcat -q 0 localhost 3505 < tmp
+rm tmp
+herccontrol -w "HHCRD012I" -f $mark
+herccontrol "/" -w "RDR FILE"
+herccontrol "/read *" -w "^Ready;"
+
+# Read RUNTEST EXEC (for testing)
+herccontrol -m >tmp; read mark <tmp; rm tmp
+echo "USERID  CMSUSER\n:READ  RUNTEST  EXEC    " > tmp
+cat test/runtest.exec >> tmp
 netcat -q 0 localhost 3505 < tmp
 rm tmp
 herccontrol -w "HHCRD012I" -f $mark 
@@ -49,7 +59,11 @@ herccontrol "/make" -w "^Ready;"
 
 # Sanity test
 herccontrol "/yata -x" -w "^Ready;"
-herccontrol "/listf test* exec a" -w "^Ready;"
+herccontrol "/listf test* exec a (label" -w "^Ready;"
+
+# Run tests
+herccontrol "/runtest" -w "^Ready;"
+
 
 # Make and load Tape
 herccontrol "/cp disc" -w "^VM/370 Online"
