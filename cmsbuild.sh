@@ -11,7 +11,7 @@ herccontrol "/cp start c" -w "RDR"
 
 # LOGON CMSUSER
 herccontrol "/cp disc" -w "^VM/370 Online"
-herccontrol "/logon cmsuser cmsuser" -w "^CMS"
+herccontrol "/logon cmsuser cmsuser" -w "^VM Community Edition V1 R1.2"
 herccontrol "/" -w "^Ready;"
 
 # Read MAKE EXEC
