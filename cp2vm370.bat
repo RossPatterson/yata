@@ -10,4 +10,3 @@ docker exec vm370 bash -c "mkdir /opt/hercules/vm370/io/test"
 docker cp test/archive.yata vm370:/opt/hercules/vm370/io/test
 
 docker exec vm370 bash -c "cd /opt/hercules/vm370/io && ./cmsbuild.sh"
-docker exec vm370 bash -c "cd /opt/hercules/vm370/io && ./cmsinstall.sh"
