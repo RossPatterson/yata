@@ -6,7 +6,7 @@ set -e
 
 # IPL
 herccontrol -v
-herccontrol "ipl 141" -w "USER DSC LOGOFF AS AUTOLOG1"
+herccontrol "ipl 6a1" -w "USER DSC LOGOFF AS AUTOLOG1"
 herccontrol "/cp start c" -w "RDR"
 
 # LOGON CMSUSER
