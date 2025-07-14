@@ -17,7 +17,7 @@
 
 #define MAXRECL 800
 #define ARCLINELEN 80
-#define VERSION "1.2.7"
+#define VERSION "1.2.8"
 
 #ifdef __CMS
 
@@ -25,7 +25,7 @@
 static char* includeTypes[] = { "C", "H", "EXEC", "ASSEMBLE", "LISTING", 
               "COPY", "MACLIB", "TMPFTYPE", "PEG", "RXAS", "Y", "RE", "TXT",
              "MACRO", "PARM", "MEMO", "HELPCMD", "HELPCMD2" , "HELPREXX",
-             "HELPTASK", "MD", "DIRECT"
+             "HELPTASK", "MD", "DIRECT", "TESTEXEC"
              };
 #define ARCHIVE "ARCHIVE YATA A1"
 #define DRIVE "A"
@@ -51,7 +51,7 @@ static char fileNameBuffer[FILENAMELEN];
 static char* includeTypes[] = { "c", "h", "exec", "assemble", "listing",
               "copy", "maclib", "tmpftype","peg", "rxas", "y", "re", "txt",
              "macro", "parm", "memo", "helpcmd", "helpcmd2" , "helprexx",
-             "helptask", "md", "direct"
+             "helptask", "md", "direct", "testexec"
              };
 #define ARCHIVE "archive.yata"
 #define DRIVE "."

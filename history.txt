@@ -3,6 +3,8 @@ YATA - Yay! Another Text Archive
 Adrian Sutherland - adrian@sutherlandonline.org
 
 History
+1.2.8 - 14 July 2025
+      - Add TESTEXEC/testexec, for bREXX's tests/testepl_.exec.
 
 1.2.7 - 2 Feb 2025
       - Add DIRECT/direct, HELPTASK/helptask, and MD/md to included file types.
